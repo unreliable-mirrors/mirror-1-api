@@ -4,9 +4,9 @@ export default function handler(req, res) {
     const { command } = req.query
     let error;
     try{
-        const responseUrl = req.headers.get('Nightbot-Response-Url')
-        const user = req.headers.get('Nightbot-User') ? new URLSearchParams(req.headers.get('Nightbot-User')) : null
-        const channel = req.headers.get('Nightbot-Channel') ? new URLSearchParams(req.headers.get('Nightbot-Channel')) : null
+        const responseUrl = req.headers['Nightbot-Response-Url']
+        const user = req.headers['Nightbot-User'] ? new URLSearchParams(req.headers['Nightbot-User']) : null
+        const channel = req.headers['Nightbot-Channel'] ? new URLSearchParams(req.headers['Nightbot-Channel']) : null
     
         if(user){
             //DO SOMETHING
@@ -17,6 +17,6 @@ export default function handler(req, res) {
     }
 
     return res.json({
-      message: `${command} - ${error}`,
+      message: `${command} - ${error} - ${responseUrl}`,
     })
   }
