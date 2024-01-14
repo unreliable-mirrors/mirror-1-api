@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/unreliable-mirrors/mirror-1-api#readme",
   "dependencies": {
-    "@vercel/node": "^3.0.16"
+    "express": "^4.18.2"
   }
 }
