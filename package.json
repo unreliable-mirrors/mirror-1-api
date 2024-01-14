@@ -1,0 +1,22 @@
+{
+  "name": "unreliable-mirrors.mirror-1-api",
+  "version": "0.0.1",
+  "description": "Unreliable Mirrors 1: Mirror 1 - Plagiarism - API for the Twitch Collaborative Art Installation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/unreliable-mirrors/mirror-1-api.git"
+  },
+  "author": "JHC",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/unreliable-mirrors/mirror-1-api/issues"
+  },
+  "homepage": "https://github.com/unreliable-mirrors/mirror-1-api#readme",
+  "dependencies": {
+    "@vercel/node": "^3.0.16"
+  }
+}
