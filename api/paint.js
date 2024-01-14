@@ -13,7 +13,7 @@ export default function handler(req, res) {
         }
 
         return res.json({
-          message: `${command} - ${responseUrl}`,
+          message: `${command} - ${responseUrl} - ${req.headers} - ${req}`,
         })
     }catch(e){
         console.log(e)
