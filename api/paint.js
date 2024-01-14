@@ -1,9 +1,9 @@
 export default function handler(req, res) {
-    console.log("START")
-    console.log("REQ", req)
-    const { command } = req.query
     let error;
     try{
+        console.log("START")
+        console.log("REQ", req)
+        const { command } = req.query
         const responseUrl = req.headers['Nightbot-Response-Url']
         const user = req.headers['Nightbot-User'] ? new URLSearchParams(req.headers['Nightbot-User']) : null
         const channel = req.headers['Nightbot-Channel'] ? new URLSearchParams(req.headers['Nightbot-Channel']) : null
@@ -11,12 +11,16 @@ export default function handler(req, res) {
         if(user){
             //DO SOMETHING
         }
+
+        return res.json({
+          message: `${command} - ${responseUrl}`,
+        })
     }catch(e){
         console.log(e)
         error = e
     }
-
     return res.json({
-      message: `${command} - ${error} - ${responseUrl}`,
+        message: `ERROR ${error}`,
     })
+
   }
