@@ -2,6 +2,7 @@ export default function handler(req, res) {
     console.log("START")
     console.log("REQ", req)
     const { command } = req.query
+    const error;
     try{
         const responseUrl = req.headers.get('Nightbot-Response-Url')
         const user = req.headers.get('Nightbot-User') ? new URLSearchParams(req.headers.get('Nightbot-User')) : null
@@ -12,9 +13,10 @@ export default function handler(req, res) {
         }
     }catch(e){
         console.log(e)
+        error = e
     }
 
     return res.json({
-      message: `${command}`,
+      message: `${command} - ${error}`,
     })
   }
