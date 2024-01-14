@@ -2,7 +2,7 @@ export default function handler(req, res) {
     console.log("START")
     console.log("REQ", req)
     const { command } = req.query
-    const error;
+    let error;
     try{
         const responseUrl = req.headers.get('Nightbot-Response-Url')
         const user = req.headers.get('Nightbot-User') ? new URLSearchParams(req.headers.get('Nightbot-User')) : null
