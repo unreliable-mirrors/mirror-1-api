@@ -13,7 +13,7 @@ export default function handler(req, res) {
         }
 
         return res.json({
-          message: `${command} - ${responseUrl} - ${req.headers} - ${req}`,
+          message: `${command} - ${responseUrl} - ${JSON.stringify(req.headers)} - ${JSON.stringify(req)}`,
         })
     }catch(e){
         console.log(e)
