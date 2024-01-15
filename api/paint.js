@@ -35,11 +35,11 @@ export default async function handler(req, res) {
         await kv.set(`BLOCKED_${userId}`, "1", {ex: ex})
 
         const time = Date.now()
-
-        const commandObj = {x, y, color, userBits, currentBits, time}
-        await kv.rpush('ALL_PAINT_COMMANDS', command)
-        await kv.rpush('RECENT_PAINT_COMMANDS', command)
-        await kv.rpush(`USER_PAINT_COMMANDS_${userId}`, command)
+        const type = "paint"
+        const commandObj = {x, y, color, userBits, currentBits, time, type}
+        await kv.rpush('ALL_PAINT_COMMANDS', commandObj)
+        await kv.rpush('RECENT_PAINT_COMMANDS', commandObj)
+        await kv.rpush(`USER_PAINT_COMMANDS_${userId}`, commandObj)
         await kv.sadd(`USERS`, {userId, name, displayName})
         await kv.sadd(`USERS`, {userId, name, displayName})
         try{
