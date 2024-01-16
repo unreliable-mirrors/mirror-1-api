@@ -7,7 +7,6 @@ export default async function handler(req, res) {
     const commands = await kv.lrange('RECENT_PAINT_COMMANDS', 0, -1)
     await kv.del('RECENT_PAINT_COMMANDS')
     return res.json({response: {
-        commands: commands,
-        matrix: await kv.lrange('MATRIX', 0, -1),
+        commands: commands
     }})
 }

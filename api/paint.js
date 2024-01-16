@@ -1,6 +1,6 @@
 const {kv} = require("@vercel/kv")
-const width = 100
-const height = 100
+const width = 1664
+const height = 936
 
 export default async function handler(req, res) {
     console.log("START", req.query)
@@ -25,10 +25,11 @@ export default async function handler(req, res) {
 
     const userBits = await kv.get(`BITS_${userId}`)
 
-    const currentBits = await kv.get("CURRENT_BITS")
+    let currentBits = await kv.get("CURRENT_BITS")
+    currentBits = currentBits ? currentBits : 0
 
     if(!blocked && userId && x != null && y != null && color){
-        let ex = 60
+        let ex = 1
         if(subscribed){
             ex = 10
         }
@@ -42,14 +43,21 @@ export default async function handler(req, res) {
         await kv.rpush(`USER_PAINT_COMMANDS_${userId}`, commandObj)
         await kv.sadd(`USERS`, {userId, name, displayName})
         await kv.sadd(`USERS`, {userId, name, displayName})
+        /*
         try{
-            await kv.del('MATRIX')
             await kv.lset(`MATRIX`, ((y%height)*width)+(x%width), color)
         }catch(e){
-            await kv.rpush('MATRIX', ...Array(10000).fill("0"))
-            console.log(kv.lrange('MATRIX', 0, -1))
+            let total = width * height;
+            while(total > 0){
+                const qty = Math.min(total, 100000)
+                total = total - qty
+
+                await kv.rpush('MATRIX', ...Array(qty).fill("0"))
+                console.log("QTY", qty)
+            }
             await kv.lset(`MATRIX`, ((y%height)*width)+(x%width), color)
         }
+        */
     }else{
         console.log("SKIPPED")
     }
@@ -64,7 +72,6 @@ export default async function handler(req, res) {
             "Nightbot-User": user,
             "Nightbot-Channel": req.headers["nightbot-channel"],
         },
-        commands: await kv.lrange('RECENT_PAINT_COMMANDS', 0, -1),
-        matrix: await kv.lrange('MATRIX', 0, -1),
+        commands: await kv.lrange('RECENT_PAINT_COMMANDS', 0, -1)
     }})
 }
